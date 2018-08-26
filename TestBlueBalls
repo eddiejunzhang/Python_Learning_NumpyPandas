@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Aug 24 20:18:26 2018
+
+@author: tj863
+"""
+
+import numpy as np
+import pandas as pd
+
+a=np.loadtxt('ssqhistory.csv', str, skiprows=1, delimiter=',')
+#a是一个二维数组
+b=a[:,8:9] 
+#对数据进行切片，只取有效数据.
+#第一个冒号表示取所有行，逗号后的两个数，冒号左边是开始的位数，右边是线束的位数
+#b是一个二维数组，但是文字型的
+c=b.astype(np.int)
+#c是一个二维数组，是数字型的
+#把数组改为一维的
+d=c.reshape(c.size)
+
+count=0
+for i in range(1000):
+#    print(d[i])
+    maxred=max(d[i+1],d[i+2],d[i+3])
+    minred=min(d[i+1],d[i+2],d[i+3])
+    print('max= ',str(maxred),'  min= ',str(minred),d[i]<maxred and d[i]>minred)
+    if d[i]<maxred and d[i]>minred:
+        count+=1
+print (count)
+
+b1=a[:,1:2]  
+c1=b1
+d1=c1.reshape(c1.size)
+e=pd.Series(d,d1)
+print(e)
